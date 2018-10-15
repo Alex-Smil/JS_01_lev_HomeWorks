@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		
+		var a, b, operation;
+		
+		do{
+			a = +prompt("Введите 1й операнд");
+			if (!isFinite(a)) {
+				alert("Вы вввели не корректный 1й операнд, попробуйте снова!");
+			}
+		} while (!isFinite(a)); 
+
+		do {
+			operation = prompt("Выбирите арифмитическую опрецию:" + 
+							   "\n+\n-\n*\n/");
+		} while (!isOperation(operation));
+
+		do{
+			b = +prompt("Введите 2й операнд");
+			if (b == 0) {
+					alert("На ноль делить нельзя! Введите еще раз 2й операнд!");
+					b = NaN; //Костыль ) Иначе calc его посчитает, так 0 это число.
+			} else if (!isFinite(b)) {
+				alert("Вы вввели не корректный 2й операнд, попробуйте снова!");
+			}
+		} while (!isFinite(b));
+
+		mySimpleCalc(a, b, operation);
+
+		function mySimpleCalc (a, b, operation) {
+			switch (operation) {
+				case "+":
+					alert(a + " + " + b + " = " + sum(a, b));
+					break;
+				case "-":
+					alert(a + " - " + b + " = " + dif(a, b));
+					break;
+				case "*":
+					alert(a + " * " + b + " = " + mult(a, b));
+					break;
+				case "/":
+					alert(a + " / " + b + " = " + div(a, b));
+					break;
+			}
+		}
+
+		function sum(a, b) {
+			return (a + b);
+		}
+
+		function dif(a, b) {
+			return (a - b);
+		}
+
+		function mult(a, b) {
+			return (a * b);
+		}
+
+		function div(a, b) {
+			return (a / b);
+		}
+
+		function isOperation(oper) {
+			if (oper == "+" || oper == "-" || oper == "*" || oper == "/") {
+				return true;
+			} else {
+				alert("Вы ввели не верную операцию!");
+				return false;
+			}
+		}
+
+	</script>
+</body>
+</html>
