@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+
+    myPrint(getArrayOfPrime(+prompt("Введите до какого числа вы хотите найти простые числа")));
+    
+    // function getArrayOfPrime находит простые числа среди ряда чисел, длину ряда задает пользователь
+    function getArrayOfPrime(lengthOfNumsRow) {
+      var i = 0, mySqrt, arrOfPrime = [];
+      while (i <= lengthOfNumsRow) {
+      	if (i < 2) {
+      		// 0 и 1 не рассматриваются
+          i++;
+      		continue;
+      	}
+
+      	// ключ обозначающий что число простое, по умолчанию = true
+        var isPrime = true;
+        // оптимизация поиска простых чисел, достаточно проерить все числа до квадрата рассматриваемого числа
+        mySqrt = Math.round(Math.sqrt(i));
+        var j = 2;
+        while (j <= mySqrt) {
+          if (i % j == 0) {
+            isPrime = false;
+            j++;
+          } else {
+            j++;
+          }
+        }
+        if (isPrime) {
+          arrOfPrime.push(i);
+        }
+        i++;
+      }
+      return arrOfPrime;
+    }
+
+    // удобный формат для чтения полученных данных,
+    // переводит строку после каждого 10 символа
+    function myPrint(arr) {
+      var arrLen = arr.length;
+      document.write("Array of prime : ");
+      for (var i = 0; i < arrLen; i++) {
+        if (i % 10 == 0) {
+          document.write("<br>");
+        }
+        document.write(arr[i] + ", ");
+      }
+    }
+    
+
+	</script>
+</body>
+</html>
