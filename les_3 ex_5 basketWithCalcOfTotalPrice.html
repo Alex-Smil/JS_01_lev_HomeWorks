@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		// Инициализируем массив basket 5ю товарами, по цене от 80 до 500
+		var basket = setRandomCost(5, 80, 500);
+		// выводим на страницу нашу корзину со стоимостью каждого товара
+		printListOfBasket(basket);
+		// выводим на страницу общую стоимость всех товаров в корзине
+ 		document.write("<br>Total Cost of goods = " + getTotalCost(basket) + " rub");
+
+		// ================================ Функции ======================================
+		// setRandomCost() инициализирет массив случайными числами (ценами) в диапозоне from - to
+		// numOfGoods - кол-во товаров в корзине
+		function setRandomCost(numOfGoods, from, to) {
+			var arr = [];
+			for (var i = 0; i < numOfGoods; i++) {
+				arr.push(Math.round(Math.random() * (to - from) + from));
+			}
+			return arr;
+		}
+
+		// данная функция выводит на страницу нашу абстрактную корзину в удобном для чтения формате
+		function printListOfBasket(arr) {
+			for (var i = 0; i < arr.length; i++) {
+				document.write("cost of goods Num: " + i + " = " + basket[i] + " rub<br>");
+			}
+		}
+
+		// данная функция выводит общую стоимость всех товаров в корзине
+		function getTotalCost(arr) {
+			var res = 0;
+			for (var i = 0; i < arr.length; i++) {
+				res += arr[i];
+			}
+			return res;
+		}
+
+		document.write("<br><br><br>Нажмите F5 чтобы обновить стоимость товаров");
+
+	</script>
+</body>
+</html>
