@@ -7,15 +7,22 @@
         grid-gap: 10px;
     }
 
+    &__unitTitle,
+    &__descript {
+        text-align: center;
+    }
+
     &__image {
-        width: 215px;
-        height: 215px;
+        width: 213px;
+        height: 213px;
     }
 
     &__unit {
-        background: white;
+        // background: white;
         padding: 5px;
         box-sizing: border-box;
+        border: 1px solid grey;
+
     }
 
     &__buttonsWrap {
