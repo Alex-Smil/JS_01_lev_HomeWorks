@@ -1,0 +1,9 @@
+.b-basket {
+    display: flex;
+
+    &__icon,
+    &__count,
+    &__totalPrice {
+        padding-right:6px;
+    }
+}

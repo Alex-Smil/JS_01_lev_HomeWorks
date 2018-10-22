@@ -1,0 +1,12 @@
+.b-catalog {
+    &__unitsWrap {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+    }
+
+    &__image {
+        width: 363px;
+        height: 363px;
+    }
+}

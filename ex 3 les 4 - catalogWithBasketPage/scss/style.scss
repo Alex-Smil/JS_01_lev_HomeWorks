@@ -1,0 +1,13 @@
+@import "../packages/bootstrap-4.1.2/scss/bootstrap.scss";
+
+body {
+    background: yellowgreen;
+}
+
+.container {
+    background: brown;
+    // height: 500px !important;
+}
+
+@import "blocks/b-basket.scss";
+@import "blocks/b-catalog.scss";
