@@ -11,15 +11,15 @@
 	<script>
 		// ************** инициализируем данные ******************
 		// Данные для адресных полей
-		var tmpStr = " abcdefgh ";
-		var arrOfChar = tmpStr.split("");
+		let tmpStr = " abcdefgh ";
+		let arrOfChar = tmpStr.split("");
 
-		var tmpNum = "87654321";
-		var arrOfNum = tmpNum.split("");
+		let tmpNum = "87654321";
+		let arrOfNum = tmpNum.split("");
 
 		// // Объекты хранят шахматные фигуры в своих полях, в unicode в формате html
 		// // Белые
-		// var whiteFigures = {pawn: "&#9817;", 
+		// let whiteFigures = {pawn: "&#9817;", 
 		// 						 rook: "&#9814;",
 		// 						 horse: "&#9816;",
 		// 						 elephant: "&#9815;",
@@ -30,7 +30,7 @@
 		// 						 rook: "&#9814;"
 		// 						 };
 		// // Черные
-		// var blackFigures = {pawn: "&#9823;", 
+		// let blackFigures = {pawn: "&#9823;", 
 		// 						 rook: "&#9820;",
 		// 						 horse: "&#9822;",
 		// 						 elephant: "&#9821;",
@@ -42,13 +42,13 @@
 		// 						 };
 
 		// в итоге предпочел использовать массивы, так как их удобнее итерировать в циклах, порядок гарантирован благодаря индексации элементов.
-		var arrOfWhiteFigures = ["&#9817;", "&#9814;", 
+		let arrOfWhiteFigures = ["&#9817;", "&#9814;", 
 								 "&#9816;", "&#9815;",
 								 "&#9812;", "&#9813;", 
 								 "&#9815;", "&#9816;",
 								 "&#9814;"];
 		// Черные
-		var arrOfBlackFigures = ['&#9823;', "&#9820;",
+		let arrOfBlackFigures = ['&#9823;', "&#9820;",
 								 "&#9822;", "&#9821;",
 								 "&#9818;", "&#9819;", 
 								 "&#9821;", "&#9822;",
@@ -56,7 +56,7 @@
 
 
 		// Размер игрового поля
-		var size = 8;
+		let size = 8;
 
 		// глобальная переменная columnId - является счетчиком/генератором id - шника для каждой ячейки игрового поля
 		// при создании каждой новой ячейки (<td>) мы будем присваивать id текущей ячейке, а после увеличивать его на 1 и присваивать уже следующей ячейке.
@@ -66,14 +66,14 @@
 		
 		// ********************* Логика ***********************
 		// Выбираем body для работы с ним
-		var body = document.querySelector("body");
+		let body = document.querySelector("body");
 
 		// блок контейнер для таблицы
-		var tableDivWrap = document.createElement("div");
+		let tableDivWrap = document.createElement("div");
 		tableDivWrap.className = "wrapper";
 
 		// Далее идет сама доска в виде таблицы с ее элементами
-		var table = document.createElement("table");
+		let table = document.createElement("table");
 		table.className = "myTable";
 
 		// добаляем table во wrapper
@@ -97,7 +97,7 @@
 		// Header Доски, этот же блок подойдет в качестве footer доски, 
 		// В footer надо только убрать класс headerOfBoard, см. ниже 
 		// size + 2 так как еще нужны левая и правая пустые ячейки
-		for (var i = 0; i < size + 2; i++) {
+		for (let i = 0; i < size + 2; i++) {
 		 	let column = document.createElement("td");// создаем ячейку
 		 	column.className = "cell headerOfBoard";// присваиваем ей класс
 			// column.id = setColumnId(column); // присваиваем уникальный Id каждой вновь созданной ячейке шах.доски
@@ -110,7 +110,7 @@
 
 		// ***** В следующем цикл создает уже само игровое поле, *****
 		// + в нем же создаем левое и правое адресное поле (там где цифры)
-		for (var i = 0; i < size; i++) {
+		for (let i = 0; i < size; i++) {
 			//Сначала создаем строку
 			let row = document.createElement("tr");
 			// Добавляем строку на доску
@@ -122,7 +122,7 @@
 			// в зависимости от их расположения на доске
 			// так же здесь присваиваем id ячейке, при условии, что она находится в рамках поля для шагов фигур.
 			// size + 2, нужен для левого и правого столбца адресных полей
-			for (var j = 0; j < size + 2; j++) {
+			for (let j = 0; j < size + 2; j++) {
 				// ** Данный подблок создает ячейку(<td>) добав ей класс и если надо id, после добавляет эту вновь созданную ячейку в строку row **
 				// создаем экземпляр ячейки
 				let column = document.createElement("td");
@@ -176,7 +176,7 @@
 		// принцип тот же, что и у header доски
 		let footerRow = document.createElement("tr");
 		
-		for (var i = 0; i < size + 2; i++) {
+		for (let i = 0; i < size + 2; i++) {
 		 	column = document.createElement("td");
 		 	column.className = "cell footerOfBoard";
 			column.innerHTML = arrOfChar[i];
