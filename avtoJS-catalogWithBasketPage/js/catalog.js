@@ -1,6 +1,4 @@
 
-// console.log();
-
 // ************ объект товар для добавления в корзину *************
 let prod_1 = {
     // front-end propirties
@@ -20,28 +18,43 @@ let prod_1 = {
 }
 
 
-// **************     testing    **************
+// ********************** testing *****************************
 // 1. извлекаем <main class="b-main">
 let main = document.querySelector("main");
 
-// 2. создаем обертку для карточек товаров
-// let unitsWrap = document.createElement("div").setAttribute("class", "b-catalog__unitsWrap");// так не работает // тогда пробуем через className
+// 2. создаем БЭМ блок <div class="b-catalog">
+let catalog = document.createElement("div");
+catalog.className = "b-catalog";
+
+// 3. создаем обертку для карточек товаров <div class="b-catalog__unitsWrap">
+// let unitsWrap = document.createElement("div").setAttribute("class", "b-catalog__unitsWrap");// так не работает 
+// тогда пробуем через className
 let unitsWrap = document.createElement("div");
 unitsWrap.className = "b-catalog__unitsWrap";
-main.appendChild(unitsWrap);
+
+// 4. добавляем созданные html элементы в main
+catalog.appendChild(unitsWrap);
+main.appendChild(catalog);
 
 
 
-// 3. Создаем карточку товара
-console.log("результат работы createCatalogUnit(prod_1)");
-let unit = createCatalogUnit(prod_1);
-console.log(unit);
+// в цикле выполняем шаги 4 и 5
+let catalogLength = 16; // Здесь можно указать кол-во карточек в каталоге
 
-// 4. Добавляем товар в main
-addUnitToCatalog(unit);
+for(let i = 0; i < catalogLength; i++) {
+    // // 4. Создаем карточку товара
+    // console.log("результат работы createCatalogUnit(prod_1)");
+    // let unit = createCatalogUnit(prod_1);
+    // console.log(unit);
 
+    // // 5. Добавляем товар в main
+    // addUnitToCatalog(unit);
 
-// ********************************************
+    // в сокращенном виде красивее
+    addUnitToCatalog(createCatalogUnit(prod_1));
+}
+
+// ******************** end of testing ************************
 
 
 
@@ -100,7 +113,7 @@ function createCatalogUnit(prod) {
 
 // добавляем в каталог
 function addUnitToCatalog(unit) {
-    // извлекаем <main class="b-main">
+    // извлекаем <div class="b-catalog__unitsWrap">
     let unitsWrap = document.querySelector(".b-catalog__unitsWrap");
     unitsWrap.appendChild(unit);
 }
