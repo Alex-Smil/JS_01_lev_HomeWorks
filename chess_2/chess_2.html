@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<meta charset="utf-8">
+</head>
+<body>
+	<!-- дальше будет работать скрипт -->
+	<script>
+		// Данные для адресных полей
+		var tmpStr = " abcdefgh ";
+		var arrOfChar = tmpStr.split("");
+		// console.log(arrOfChar);
+
+		var tmpNum = "87654321";
+		var arrOfNum = tmpNum.split("");
+		// console.log(arrOfNum);
+
+		// Объекты хранят шахматные фигуры в своих полях, в unicode в формате html
+		// Белые
+		var whiteFigures = {pawn: "&#9817;", 
+								 rook: "&#9814;",
+								 horse: "&#9816;",
+								 elephant: "&#9815;",
+								 queen: "&#9813;",
+								 king: "&#9812;",
+								 elephant: "&#9815;",
+								 horse: "&#9816;",
+								 rook: "&#9814;"
+								 };
+		// Черные
+		var blackFigures = {pawn: "&#9823;", 
+								 rook: "&#9820;",
+								 horse: "&#9822;",
+								 elephant: "&#9821;",
+								 queen: "&#9819;",
+								 king: "&#9818;",
+								 elephant: "&#9821;",
+								 horse: "&#9822;",
+								 rook: "&#9820;"
+								 };
+		// Пока еще незнаю, но может быть удобнее будет хранить и использовать фигуры
+		// в массивах, порядок фигур такой же как и внутри объектов, да и вообще фигуры
+		// расположены согласно своему стандартному порядку.
+		var arrOfWhiteFigures = ["&#9817;", "&#9814;", 
+								 "&#9816;", "&#9815;",
+								 "&#9812;", "&#9813;", 
+								 "&#9815;", "&#9816;",
+								 "&#9814;"];
+		// Черные
+		var arrOfBlackFigures = ['&#9823;', "&#9820;",
+								 "&#9822;", "&#9821;",
+								 "&#9818;", "&#9819;", 
+								 "&#9821;", "&#9822;",
+								 "&#9820;"];
+
+
+		// Размер игрового поля
+		var size = 8;
+
+		// Выбираем body для работы с ним
+		var body = document.querySelector("body");
+
+		// блок контейнер для таблицы
+		var tableDivWrap = document.createElement("div");
+		tableDivWrap.className = "wrapper";
+
+		// Далее идет сама доска в виде таблицы с ее элементами
+		var table = document.createElement("table");
+		table.className = "myTable";
+
+		// добаляем board во wrapper
+		tableDivWrap.appendChild(table);
+		// wrapper вкладываем в myBody
+		body.appendChild(tableDivWrap);
+
+
+		// Далее создаем строку
+		var row = document.createElement("tr");
+
+		// объявляем переменные 1 раз, затем мы просто будем перекидывать через них наши вновь 
+		// созданные html элементы 
+		let column, columnOfChar, columnText;
+
+		// В этом цикле создаем верхнию строку доски с буквами
+		// Header Доски, этот же блок подойдет в качестве footer доски, 
+		// В footer надо только убрать класс headerOfBoard, см. ниже 
+		// size + 2 так как еще нужны левая и правая пустые ячейки
+		for (var i = 0; i < size + 2; i++) {
+		 	column = document.createElement("td");
+		 	column.className = "cell headerOfBoard";
+		 	columnOfChar = document.createTextNode(arrOfChar[i]);
+		 	column.appendChild(columnOfChar);
+		 	row.appendChild(column);
+		 } 
+
+		// добавляем адресную строку на доску в самом верху
+		table.appendChild(row);
+
+		// В следующем цикл создает уже само игровое поле,
+		// + в нем же создаем левое и правое адресное поле (там где цифры)
+		for (var i = 0; i < size; i++) {
+			//Сначала создаем строку
+			row = document.createElement("tr");
+			// Добавляем строку на доску
+			table.appendChild(row);
+
+
+			// Заполняем строку ячейками, создаем columns и по очерди помещаем column в строку,
+			// + при помощи условных блоков мы заполняем columns контентом и стилизуем их 
+			// в зависимости от их расположения на доске
+			// size + 2, нужен для левого и правого столбца адресных полей
+			for (var j = 0; j < size + 2; j++) {
+				// создаем экземпляр ячейки
+				column = document.createElement("td");
+
+				if (j == 0) {
+					column.className = "cell addressFieldLeft";
+					columnText = document.createTextNode(arrOfNum[i]);
+					column.appendChild(columnText);
+					row.appendChild(column);
+				} else if (j == 9) {
+					column.className = "cell addressFieldRight";
+					columnText = document.createTextNode(arrOfNum[i]);
+					column.appendChild(columnText);
+					row.appendChild(column);
+				} else if ((i % 2 != 0 && j % 2 != 0) || (i % 2 == 0 && j % 2 == 0)) {
+					column.className = "cell blackField";
+					row.appendChild(column);
+				} else {
+					column.className = "cell whiteCell";
+					row.appendChild(column);
+				}
+
+				// Данный блок расставляет фигуры в первоначальное расположение
+				// Ставим основные черные фигуры наверху
+				if (i == 0 && (j != 0 && j != 9)) {
+					column.innerHTML = arrOfBlackFigures[j];
+					row.appendChild(column);
+				}
+				// Ставим черный пешки наверху
+				if (i == 1 && (j != 0 && j != 9)) {
+					column.innerHTML = arrOfBlackFigures[0];
+					row.appendChild(column);
+				}
+
+				// Ставим белые фигуры
+				// Ставим белые пешки наверху
+				if (i == 6 && (j != 0 && j != 9)) {
+					column.innerHTML = arrOfWhiteFigures[0];
+					row.appendChild(column);
+				}
+				// Ставим основные белые фигуры наверху
+				if (i == 7 && (j != 0 && j != 9)) {
+					column.innerHTML = arrOfWhiteFigures[j];
+					row.appendChild(column);
+				}
+			}
+		}
+
+		// Footer доски
+		row = document.createElement("tr");
+		
+		for (var i = 0; i < size + 2; i++) {
+		 	column = document.createElement("td");
+		 	column.className = "cell footerOfBoard";
+		 	columnOfChar = document.createTextNode(arrOfChar[i]);
+		 	column.appendChild(columnOfChar);
+		 	row.appendChild(column);
+		} 
+
+		table.appendChild(row);
+
+
+	</script>
+</body>
+</html>
