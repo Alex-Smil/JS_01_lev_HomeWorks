@@ -33,7 +33,7 @@
 	transform: rotate(180deg);
 }
 
-.blackField {
+.blackCell {
 	/*background: black;*/
 	/*background-image: url(../images/woodBlack.png);*/
 	background: url(../images/woodBlack_2.jpg) center center;

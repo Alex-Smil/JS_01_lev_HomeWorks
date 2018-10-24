@@ -59,6 +59,10 @@
 		// Размер игрового поля
 		var size = 8;
 
+		// глобальная переменная columnId - является счетчиком/генератором id - шника для каждой ячейки игрового поля
+		// при создании каждой новой ячейки (<td>) мы будем присваивать id текущей ячейке, а после увеличивать его на 1 и присваивать уже следующей ячейке.
+		let columnId = 0;
+
 		// Выбираем body для работы с ним
 		var body = document.querySelector("body");
 
@@ -83,22 +87,21 @@
 		// созданные html элементы 
 		let column, columnOfChar, columnText;
 
-		// В этом цикле создаем верхнию строку доски с буквами
+		// ***** В этом цикле создаем верхнию строку доски с буквами *****
 		// Header Доски, этот же блок подойдет в качестве footer доски, 
 		// В footer надо только убрать класс headerOfBoard, см. ниже 
 		// size + 2 так как еще нужны левая и правая пустые ячейки
 		for (var i = 0; i < size + 2; i++) {
-		 	column = document.createElement("td");
-		 	column.className = "cell headerOfBoard";
-		 	columnOfChar = document.createTextNode(arrOfChar[i]);
-		 	column.appendChild(columnOfChar);
+		 	column = document.createElement("td");// создаем ячейку
+		 	column.className = "cell headerOfBoard";// присваиваем ей класс
+			column.innerHTML = arrOfChar[i];
 		 	row.appendChild(column);
 		 } 
 
 		// добавляем адресную строку на доску в самом верху
 		table.appendChild(row);
 
-		// В следующем цикл создает уже само игровое поле,
+		// ***** В следующем цикл создает уже само игровое поле, *****
 		// + в нем же создаем левое и правое адресное поле (там где цифры)
 		for (var i = 0; i < size; i++) {
 			//Сначала создаем строку
@@ -107,33 +110,32 @@
 			table.appendChild(row);
 
 
-			// Заполняем строку ячейками, создаем columns и по очерди помещаем column в строку,
-			// + при помощи условных блоков мы заполняем columns контентом и стилизуем их 
+			// Заполняем строку ячейками, создаем columns (<td>) и по очереди помещаем column в строку,
+			// + при помощи условных блоков мы заполняем columns определенным контентом и стилизуем их 
 			// в зависимости от их расположения на доске
 			// size + 2, нужен для левого и правого столбца адресных полей
 			for (var j = 0; j < size + 2; j++) {
 				// создаем экземпляр ячейки
 				column = document.createElement("td");
-
-				if (j == 0) {
+				
+				// ** оолололо **
+				if (j == 0) { // левое адресное поле
 					column.className = "cell addressFieldLeft";
-					columnText = document.createTextNode(arrOfNum[i]);
-					column.appendChild(columnText);
+					column.innerHTML = arrOfNum[i];
 					row.appendChild(column);
-				} else if (j == 9) {
+				} else if (j == 9) { // правое адресное поле
 					column.className = "cell addressFieldRight";
-					columnText = document.createTextNode(arrOfNum[i]);
-					column.appendChild(columnText);
+					column.innerHTML = arrOfNum[i];
 					row.appendChild(column);
-				} else if ((i % 2 != 0 && j % 2 != 0) || (i % 2 == 0 && j % 2 == 0)) {
-					column.className = "cell blackField";
+				} else if ((i % 2 != 0 && j % 2 != 0) || (i % 2 == 0 && j % 2 == 0)) { // в рамках игрового поля, правило для черных
+					column.className = "cell blackCell";
 					row.appendChild(column);
-				} else {
+				} else { // в рамках игрового поля, правило для белых
 					column.className = "cell whiteCell";
 					row.appendChild(column);
 				}
 
-				// Данный блок расставляет фигуры в первоначальное расположение
+				// ** Данный подблок расставляет фигуры в первоначальное расположение **
 				// Ставим основные черные фигуры наверху
 				if (i == 0 && (j != 0 && j != 9)) {
 					column.innerHTML = arrOfBlackFigures[j];
@@ -165,12 +167,16 @@
 		for (var i = 0; i < size + 2; i++) {
 		 	column = document.createElement("td");
 		 	column.className = "cell footerOfBoard";
-		 	columnOfChar = document.createTextNode(arrOfChar[i]);
-		 	column.appendChild(columnOfChar);
+			column.innerHTML = arrOfChar[i];
 		 	row.appendChild(column);
 		} 
 
 		table.appendChild(row);
+
+		// ***** вспомогательные функции *****
+		function setId(column) {
+
+		}
 
 
 	</script>
