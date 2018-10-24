@@ -10,16 +10,44 @@
 
 	<script>
 		// ************** инициализируем данные ******************
+		// Данные для адресных полей
 		let tmpStr = " abcdefgh ";
 		let arrOfChar = tmpStr.split("");
+
 		let tmpNum = "87654321";
 		let arrOfNum = tmpNum.split("");
 
+		// // Объекты хранят шахматные фигуры в своих полях, в unicode в формате html
+		// // Белые
+		// let whiteFigures = {pawn: "&#9817;", 
+		// 						 rook: "&#9814;",
+		// 						 horse: "&#9816;",
+		// 						 elephant: "&#9815;",
+		// 						 queen: "&#9813;",
+		// 						 king: "&#9812;",
+		// 						 elephant: "&#9815;",
+		// 						 horse: "&#9816;",
+		// 						 rook: "&#9814;"
+		// 						 };
+		// // Черные
+		// let blackFigures = {pawn: "&#9823;", 
+		// 						 rook: "&#9820;",
+		// 						 horse: "&#9822;",
+		// 						 elephant: "&#9821;",
+		// 						 queen: "&#9819;",
+		// 						 king: "&#9818;",
+		// 						 elephant: "&#9821;",
+		// 						 horse: "&#9822;",
+		// 						 rook: "&#9820;"
+		// 						 };
+
+		// в итоге предпочел использовать массивы, так как их удобнее итерировать в циклах, порядок гарантирован благодаря индексации элементов.
 		let arrOfWhiteFigures = ["&#9817;", "&#9814;", 
 								 "&#9816;", "&#9815;",
 								 "&#9812;", "&#9813;", 
 								 "&#9815;", "&#9816;",
 								 "&#9814;"];
+		// Черные
 		let arrOfBlackFigures = ['&#9823;', "&#9820;",
 								 "&#9822;", "&#9821;",
 								 "&#9818;", "&#9819;", 
@@ -27,75 +55,125 @@
 								 "&#9820;"];
 
 
+		// Размер игрового поля
 		let size = 8;
+
+		// глобальная переменная columnId - является счетчиком/генератором id - шника для каждой ячейки игрового поля
+		// при создании каждой новой ячейки (<td>) мы будем присваивать id текущей ячейке, а после увеличивать его на 1 и присваивать уже следующей ячейке.
 		let columnId = 0;
 		// *****************************************************
 
 		
 		// ********************* Логика ***********************
+		// Выбираем body для работы с ним
 		let body = document.querySelector("body");
 
+		// блок контейнер для таблицы
 		let tableDivWrap = document.createElement("div");
 		tableDivWrap.className = "wrapper";
 
+		// Далее идет сама доска в виде таблицы с ее элементами
 		let table = document.createElement("table");
 		table.className = "myTable";
 
+		// добаляем table во wrapper
 		tableDivWrap.appendChild(table);
+		// wrapper вкладываем в body
 		body.appendChild(tableDivWrap);
 
 
+		// Далее создаем верхнию строку
 		let row = document.createElement("tr");
 
+		// *******************************************************************************************
+		// объявляем переменные 1 раз, затем мы просто будем перекидывать через них наши вновь 		
+		// созданные html элементы 																	
+		// let column, columnOfChar, columnText; - этот вариант не особо хорош						 
+		// Лучше идти другим путем, путем объявления локальных переменных, см. на gitHub - вариант 2 
+		// https://github.com/Alex-Smil/JSMyProjects/pull/1											 
+		// *******************************************************************************************
+
+		// ***** В этом цикле создаем верхнию строку (header) доски с буквами *****
+		// Header Доски, этот же блок подойдет в качестве footer доски, 
+		// В footer надо только убрать класс headerOfBoard, см. ниже 
+		// size + 2 так как еще нужны левая и правая пустые ячейки
 		for (let i = 0; i < size + 2; i++) {
-		 	let column = document.createElement("td");
-		 	column.className = "cell headerOfBoard";
+		 	let column = document.createElement("td");// создаем ячейку
+		 	column.className = "cell headerOfBoard";// присваиваем ей класс
+			// column.id = setColumnId(column); // присваиваем уникальный Id каждой вновь созданной ячейке шах.доски
 			column.innerHTML = arrOfChar[i];
 		 	row.appendChild(column);
 		 } 
+
+		// добавляем адресную строку на доску в самом верху
 		table.appendChild(row);
 
+		// ***** В следующем цикл создает уже само игровое поле, *****
+		// + в нем же создаем левое и правое адресное поле (там где цифры)
 		for (let i = 0; i < size; i++) {
+			//Сначала создаем строку
 			let row = document.createElement("tr");
+			// Добавляем строку на доску
 			table.appendChild(row);
-			
+
+
+			// Заполняем строку ячейками, создаем columns (<td>) и по очереди помещаем column в строку,
+			// + при помощи условных блоков мы заполняем columns определенным контентом и стилизуем их 
+			// в зависимости от их расположения на доске
+			// так же здесь присваиваем id ячейке, при условии, что она находится в рамках поля для шагов фигур.
+			// size + 2, нужен для левого и правого столбца адресных полей
 			for (let j = 0; j < size + 2; j++) {
+				// ** Данный подблок создает ячейку(<td>) добав ей класс и если надо id, после добавляет эту вновь созданную ячейку в строку row **
+				// создаем экземпляр ячейки
 				let column = document.createElement("td");
 				
-				if (j == 0) {
+				// присваиваем аттрибуты и добавляем в строку
+				if (j == 0) { // левое адресное поле
 					column.className = "cell addressFieldLeft";
 					column.innerHTML = arrOfNum[i];
 					row.appendChild(column);
-				} else if (j == 9) { 
+				} else if (j == 9) { // правое адресное поле
 					column.className = "cell addressFieldRight";
 					column.innerHTML = arrOfNum[i];
 					row.appendChild(column);
-				} else if ((i % 2 != 0 && j % 2 != 0) || (i % 2 == 0 && j % 2 == 0)) { 
+				} else if ((i % 2 != 0 && j % 2 != 0) || (i % 2 == 0 && j % 2 == 0)) { // в рамках игрового поля, правило для черных
 					column.className = "cell blackCell";
-					column.id = setColumnId(column); 
+					column.id = setColumnId(column); // присваиваем уникальный Id каждой вновь созданной ячейке шах.доски в рамках поля, там где можно делать шаги
 					row.appendChild(column);
-				} else { 
+				} else { // в рамках игрового поля, правило для белых
 					column.className = "cell whiteCell";
-					column.id = setColumnId(column); 
+					column.id = setColumnId(column); // присваиваем уникальный Id каждой вновь созданной ячейке шах.доски в рамках поля, там где можно делать шаги
 					row.appendChild(column);
 				}
 
+				// ** Данный подблок расставляет фигуры в первоначальное расположение **
+				// Ставим основные черные фигуры наверху, фигуры берем из заранее подготовленных массивов 
 				if (i == 0 && (j != 0 && j != 9)) {
 					column.innerHTML = arrOfBlackFigures[j];
 					row.appendChild(column);
-				} else if (i == 1 && (j != 0 && j != 9)) {
+				} 
+				// Ставим черный пешки наверху
+				else if (i == 1 && (j != 0 && j != 9)) {
 					column.innerHTML = arrOfBlackFigures[0];
 					row.appendChild(column);
-				} else if (i == 6 && (j != 0 && j != 9)) {
+				} 
+				
+				// Ставим белые фигуры
+				// Ставим белые пешки наверху
+				else if (i == 6 && (j != 0 && j != 9)) {
 					column.innerHTML = arrOfWhiteFigures[0];
 					row.appendChild(column);
-				} else if (i == 7 && (j != 0 && j != 9)) {
+				}
+				// Ставим основные белые фигуры наверху
+				else if (i == 7 && (j != 0 && j != 9)) {
 					column.innerHTML = arrOfWhiteFigures[j];
 					row.appendChild(column);
 				}
 			}
 		}
 
+		// Footer доски
+		// принцип тот же, что и у header доски
 		let footerRow = document.createElement("tr");
 		
 		for (let i = 0; i < size + 2; i++) {
@@ -104,8 +182,12 @@
 			column.innerHTML = arrOfChar[i];
 		 	footerRow.appendChild(column);
 		} 
+
 		table.appendChild(footerRow);
 
+		// ***** вспомогательные функции *****
+
+		// setColumnId(column) присваивает уникальный id ячейке
 		function setColumnId(column) {
 			column.setAttribute("id", columnId);
 			columnId++;
