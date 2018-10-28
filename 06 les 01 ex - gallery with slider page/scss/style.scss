@@ -1,0 +1,70 @@
+@import "../packages/bootstrap-4.1.2/scss/bootstrap-grid.scss";
+@import "../packages/bootstrap-4.1.2/scss/bootstrap-reboot.scss";
+
+// ****************************************
+.b-containerMy {
+    // background: yellowgreen;
+    width: 482px;
+    margin: 0 auto;
+}
+// ****************************************
+.b-header {
+    height: 200px;
+    width: 100%;
+
+    &__logoLink {
+        display: flex;
+        text-decoration: none;
+        color: black;
+
+        &:hover {
+            text-decoration: none;
+            color: black;
+        }
+
+        &:active {
+            text-decoration: none;
+        }
+    }
+
+    &__logoImage {
+        width: 200px;
+        height: 200px;
+    }
+
+    &__logoTitle {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 36px;
+        line-height: 200px;
+    }
+}
+// ****************************************
+.b-gallery {
+    &_marginTop {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    &__bigImageWrap {
+        border: 1px solid black;
+        box-sizing: border-box;
+        height: 482px;
+    }
+
+    &__bigImage {
+
+    }
+
+    &__imagesWrap {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin-top: 20px;
+    }
+
+    &__image {
+        width: 120px;
+        height: 120px;
+        border: 1px solid black;
+    }
+}
+// ****************************************
