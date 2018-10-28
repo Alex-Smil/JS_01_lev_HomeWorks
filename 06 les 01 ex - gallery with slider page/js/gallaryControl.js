@@ -1,4 +1,14 @@
 
+// ******** Глобальные переменные **********
+let indexImg = 0;
+let delay = 2000;
+
+
+
+
+
+
+
 function init() {
     // *** извлекаем картиники из галлерии в массив
     let galleryImages = document.getElementsByClassName("b-gallery__image"); 
@@ -7,6 +17,8 @@ function init() {
     for(let i = 0 ; i < galleryImages.length; i++) {
         galleryImages[i].addEventListener("click", changeBigPicture);
     }
+
+    setInterval(avtoChangeBigPicture, delay, galleryImages);
 } 
 
 function changeBigPicture(eventObj) {
@@ -31,6 +43,7 @@ function changeBigPicture(eventObj) {
         // *** подставляем полученный src в значение аттрибута src="" из bigImage
         // изменения незамедлительно отобразаться в DOM на страничке
         bigImage.src = src;
+        // indexImg = 
     } else {
         // если картинки нет выводим предупреждение
         // шутками-шутками, а модальное окно или вставку спец Img в этом случае доделать.
@@ -38,7 +51,7 @@ function changeBigPicture(eventObj) {
     }
 }
 
-// **********  ex 1 tester ***********
+// ex 1 tester
 // вспомогательная func определяет существует ли картинка по указанному src
 function isExistImage(src) {
     if(src == undefined || src == null) {
@@ -48,7 +61,6 @@ function isExistImage(src) {
     console.log("smallImage.src = " + src);
     return true;
 }
-// ***********************************
 
 
 // ;-) blue fatalitist
@@ -60,6 +72,26 @@ function blueFatality() {
     image.src = "images/blueFatality.png";
     body.insertBefore(image, firstBlock);
 }
+
+// change image in loop
+// создает псевдо объект для avtoChangeBigPicture и вызывает её
+function avtoChangeBigPicture(galleryImages) {
+    // псевдообъект для 
+    // задаем литералом
+    let psevdoImg = {
+        target: galleryImages[indexImg]
+    };
+    changeBigPicture(psevdoImg);
+    indexImg++;
+    if(indexImg >= galleryImages.length) {
+        indexImg = 0;
+    }
+}
+
+
+
+
+
 
 window.onload = init;
 
