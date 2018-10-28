@@ -48,11 +48,12 @@
     &__bigImageWrap {
         border: 1px solid black;
         box-sizing: border-box;
-        height: 482px;
+        // height: 482px;
     }
 
     &__bigImage {
-
+        width: 480px;
+        height: 480px;
     }
 
     &__imagesWrap {
