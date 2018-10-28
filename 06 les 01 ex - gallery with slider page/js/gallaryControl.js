@@ -21,16 +21,52 @@ function changeBigPicture(eventObj) {
 
     // *** извлекаем нужные данные из него, нам нужен src
     let src = smallImage.src;
-    // console.log("src: " + src);
 
-    // *** подставляем полученный src в значение аттрибута src="" из bigImage
-    // изменения незамедлительно отобразаться в DOM на страничке
-    bigImage.src = src;
+    // **********  ex 1 tester ***********
+    // ;-) blue fatalitist
+    // src = undefined;
+    // ***********************************
+
+    if(isExistImage(src)) {
+        // *** подставляем полученный src в значение аттрибута src="" из bigImage
+        // изменения незамедлительно отобразаться в DOM на страничке
+        bigImage.src = src;
+    } else {
+        // если картинки нет выводим предупреждение
+        // шутками-шутками, а модальное окно или вставку спец Img в этом случае доделать.
+        blueFatality();
+    }
 }
 
+// **********  ex 1 tester ***********
+// вспомогательная func определяет существует ли картинка по указанному src
+function isExistImage(src) {
+    if(src == undefined || src == null) {
+        return false;
+    }
+    console.log("Все ок");
+    console.log("smallImage.src = " + src);
+    return true;
+}
+// ***********************************
+
+
+// ;-) blue fatalitist
+function blueFatality() {
+    let body = document.querySelector("body");
+    let firstBlock = document.querySelector(".b-header");
+    let image = document.createElement("img");
+    image.className = "blueFatalityImg";
+    image.src = "images/blueFatality.png";
+    body.insertBefore(image, firstBlock);
+}
 
 window.onload = init;
 
+
+
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // кун-фу прием от Михаила les 06
 // вызов функции из анонимной функции
 // for (let i = 0; i < images.length; i++) {
@@ -38,3 +74,4 @@ window.onload = init;
 //         changeBigPicture(i, images[i].src);
 //     });
 // }
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
