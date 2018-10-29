@@ -2,12 +2,15 @@
 @import "../packages/bootstrap-4.1.2/scss/bootstrap-reboot.scss";
 
 // ****************************************
+body {
+    padding-bottom: 50px;
+}
 .b-containerMy {
     // background: yellowgreen;
     width: 674px;
     margin: 0 auto;
-    padding-bottom: 150px;
 }
+
 // ****************************************
 .b-header {
     height: 200px;
@@ -41,7 +44,6 @@
 }
 // ****************************************
 .b-gallery {
-    background: brown;
 
     &_marginTop {
         margin-top: 30px;
@@ -51,6 +53,7 @@
     &__slider {
         display: grid;
         display: flex;
+        margin-bottom: 30px;
     }
 
     &__prevSlide,
@@ -63,10 +66,9 @@
     } 
 
     &__bigImageWrap {
-        background: green;
         border: 1px solid black;
         box-sizing: border-box;
-        // height: 482px;
+        // margin-bottom: 20px;
     }
 
     &__bigImage {
@@ -75,10 +77,12 @@
     }
 
     &__imagesWrap {
+        background: brown;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        grid-gap: 24px;
-        margin-top: 20px;
+        grid-gap: 18px;
+        // margin-top: 20px;
+        padding: 10px;
     }
 
     &__image {
