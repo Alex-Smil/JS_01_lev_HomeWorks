@@ -21,8 +21,13 @@ function init() {
         });
     }
 
-    // loopInterval = setInterval(avtoChangeBigPicture, delay, galleryImages);
     setInterval(avtoChangeBigPicture, delay, galleryImages);
+
+    // инициализация обработчика кнопок changeBigPictureByButton(evevntObj)
+    let prevButton = document.querySelector(".prevButton");
+    let nextButton = document.querySelector(".nextButton");
+    prevButton.addEventListener("click", changeBigPictureByButton);
+    nextButton.addEventListener("click", changeBigPictureByButton);
 
 } 
 
@@ -93,6 +98,18 @@ function blueFatality() {
     body.insertBefore(image, firstBlock);
 }
 
+
+
+// обработчик кнопок prevSlide и nextSlide
+function changeBigPictureByButton(evevntObj) {
+    let prevButton, nextButton;
+    tmpButton = evevntObj.target;
+    if(tmpButton.className == "prevButton") {
+        prevButton = tmpButton;
+    } else {
+        nextButton = tmpButton;
+    }
+}
 
 
 
