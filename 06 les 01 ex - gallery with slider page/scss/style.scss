@@ -4,8 +4,9 @@
 // ****************************************
 .b-containerMy {
     // background: yellowgreen;
-    width: 482px;
+    width: 674px;
     margin: 0 auto;
+    padding-bottom: 150px;
 }
 // ****************************************
 .b-header {
@@ -40,12 +41,29 @@
 }
 // ****************************************
 .b-gallery {
+    background: brown;
+
     &_marginTop {
         margin-top: 30px;
         margin-bottom: 30px;
     }
 
+    &__slider {
+        display: grid;
+        display: flex;
+    }
+
+    &__prevSlide,
+    &__nextSlide {
+        background: yellow;
+        font-size: 90px;
+        line-height: 480px;
+        padding-left: 20px;
+        padding-right: 20px;
+    } 
+
     &__bigImageWrap {
+        background: green;
         border: 1px solid black;
         box-sizing: border-box;
         // height: 482px;
@@ -59,12 +77,13 @@
     &__imagesWrap {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
+        grid-gap: 24px;
         margin-top: 20px;
     }
 
     &__image {
-        width: 120px;
-        height: 120px;
+        width: 150px;
+        height: 150px;
         border: 1px solid black;
     }
 }
