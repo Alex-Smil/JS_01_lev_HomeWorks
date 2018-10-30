@@ -58,7 +58,7 @@ body {
 
     &__prevButton,
     &__nextButton {
-        background: yellow;
+        // background: yellow;
         font-size: 90px;
         line-height: 480px;
         padding-left: 20px;
@@ -77,7 +77,7 @@ body {
     }
 
     &__imagesWrap {
-        background: brown;
+        // background: brown;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-gap: 18px;
