@@ -1,19 +1,18 @@
+window.onload = init;
+
+
 
 // ******** Глобальные переменные **********
 let globIndexImg = 1;
-let delay = 2000;
+let delay = 5000;
 let loopInterval;
 
-
-
-
-
+// *** извлекаем картиники из галлерии в массив, делаем его глобальным
+//  чтобы расширить его область видимости, так как его еспользуют разные функции.
+let galleryImages = document.getElementsByClassName("b-gallery__image"); 
 
 
 function init() {
-    // *** извлекаем картиники из галлерии в массив
-    let galleryImages = document.getElementsByClassName("b-gallery__image"); 
-
     // *** вешаем на каждую картинку addEventListener();
     for(let index = 0 ; index < galleryImages.length; index++) {
         galleryImages[index].addEventListener("click", function() {
@@ -21,15 +20,19 @@ function init() {
         });
     }
 
+    // автомат. перелистывание фотографии
     setInterval(avtoChangeBigPicture, delay, galleryImages);
 
     // инициализация обработчика кнопок changeBigPictureByButton(evevntObj)
-    let prevButton = document.querySelector(".prevButton");
-    let nextButton = document.querySelector(".nextButton");
+    let prevButton = document.querySelector(".b-gallery__prevButton");
+    let nextButton = document.querySelector(".b-gallery__nextButton");
     prevButton.addEventListener("click", changeBigPictureByButton);
     nextButton.addEventListener("click", changeBigPictureByButton);
 
-} 
+    // prevButton.onclick = changeBigPictureByButton;
+    // nextButton.onclick = changeBigPictureByButton;
+
+} // END of init
 
 // change image in loop
 // создает псевдо объект для avtoChangeBigPicture и вызывает её
@@ -42,7 +45,7 @@ function avtoChangeBigPicture(galleryImages) {
     if(globIndexImg >= galleryImages.length) {
         globIndexImg = 0;
     }
-}
+} // END of avtoChangeBigPicture()
 
 function changeBigPicture(eventObj, index) {
 
@@ -67,14 +70,14 @@ function changeBigPicture(eventObj, index) {
         // если картинки нет выводим предупреждение
         // шутками-шутками, а модальное окно или вставку спец Img в этом случае доделать.
         blueFatality();
-    }
+    } // END of changeBigPicture()
     
     // *** подставляем полученный src в значение аттрибута src="" из bigImage
     // изменения незамедлительно отобразаться в DOM на страничке
     bigImage.src = src;
     // indexImg = // узнат под каким индексом эта картинка в galleryImages !!!!
     globIndexImg = index;
-}
+}// END of ChangeBigPicture()
 
 // ex 1 tester
 // вспомогательная func определяет существует ли картинка по указанному src
@@ -82,11 +85,10 @@ function isExistImage(src) {
     if(src == undefined || src == null) {
         return false;
     }
-    console.log("Все ок");
-    console.log("smallImage.src = " + src);
+    // console.log("Все ок");
+    // console.log("smallImage.src = " + src);
     return true;
 }
-
 
 // ;-) blue fatalitist
 function blueFatality() {
@@ -100,15 +102,30 @@ function blueFatality() {
 
 
 
-// обработчик кнопок prevSlide и nextSlide
-function changeBigPictureByButton(evevntObj) {
-    let prevButton, nextButton;
-    tmpButton = evevntObj.target;
-    if(tmpButton.className == "prevButton") {
-        prevButton = tmpButton;
+// обработчик кнопок prevbutton и nextButton  changeBigPictureByButton
+function changeBigPictureByButton(eventObj) {
+    // извлекаем b-gallery__bigImage для изменения его src
+    let bigImage = document.querySelector(".b-gallery__bigImage");
+    
+    // определеям какую кнопку нажали
+    let eventButton = eventObj.target;
+    console.log("eventButton.className = " + eventButton.className);
+    
+    if(eventButton.className == 'b-gallery__prevButton' || eventButton.className == 'fas fa-chevron-left') {
+        globIndexImg--;
+        if(globIndexImg < 0) { // проверка на выход за пределы массива картинок
+            globIndexImg = galleryImages.length - 1;
+        }
+        bigImage.src = galleryImages[globIndexImg].src;
     } else {
-        nextButton = tmpButton;
+        globIndexImg++;
+        if(globIndexImg >= galleryImages.length) { // проверка на выход за пределы массива картинок
+            globIndexImg = 0;
+        }
+        bigImage.src = galleryImages[globIndexImg].src;
     }
+
+
 }
 
 
@@ -117,7 +134,7 @@ function changeBigPictureByButton(evevntObj) {
 
 
 
-window.onload = init;
+
 
 
 
