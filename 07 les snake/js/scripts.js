@@ -13,9 +13,9 @@ let foodCreationSpeed = 1000;   //Скорость появления еды
 let numberOfFood = [3, 0];  //Количество еды. 0 элемент-макс количество, 1 элемент - количество на поле
 
 // my global vars,
-let barrierCreationSpeed = 2000
+let barrierCreationSpeed = 5000
 // по аналогии с numberOfFood[]
-let numberOfBarriers = [3, 0];
+let numberOfBarriers = [20, 0];
 
 let score = 0;  //Очки
 
@@ -189,7 +189,7 @@ function createBarrier() {
             let barrierCellClasses = barrierCell.getAttribute("class").split(" ");
             console.log("barrierCellClass[0] = " + barrierCellClasses[0]);
     
-            //Если тут нет змейки, то размещаем еду
+            //Если тут нет змейки, то размещаем барьер
             if(!barrierCellClasses.includes("snake-unit")) {
                 //ставим в выбранную ячейку барьер
                 barrierCell.setAttribute("class", barrierCellClasses.join(" ") + " barrier-unit");
@@ -219,7 +219,10 @@ function haveFood(unit){
 		unit.setAttribute("class", unitClasses[0] + " " + unitClasses[1] + " " + unitClasses[3]);
 		
 		//создаём новую еду
-		createFood();
+        createFood();
+        
+        // создаем новое припятствие
+        createBarrier();
 		
 		//увеличиваем очки
         score++;
