@@ -98,14 +98,18 @@ function moveSnake() {
         let coordY = parseInt(snakeCoords[2]);
 
         if (snakeDirection == "y+") {
-            if(coordY + 1 == FIELD_SIZE_Y) {
+            if((coordY + 1) == FIELD_SIZE_Y) {
                 // coordY -= coordY;
                 newUnit = document.getElementsByClassName("cell-" + coordX + "-" + (coordY - coordY))[0];
             } else {
                 newUnit = document.getElementsByClassName("cell-" + coordX + "-" + (coordY + 1))[0];
             }
         } else if (snakeDirection == "y-") {
-            newUnit = document.getElementsByClassName("cell-" + coordX + "-" + (coordY - 1))[0];
+            if((coordY - 1) < 0) {
+                newUnit = document.getElementsByClassName("cell-" + coordX + "-" + (coordY = FIELD_SIZE_Y - 1))[0];
+            } else {
+                newUnit = document.getElementsByClassName("cell-" + coordX + "-" + (coordY - 1))[0];
+            }
         } else if (snakeDirection == "x-") {
             newUnit = document.getElementsByClassName("cell-" + (coordX - 1) + "-" + coordY)[0];
         } else if (snakeDirection == "x+") {
