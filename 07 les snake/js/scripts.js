@@ -113,10 +113,11 @@ function moveSnake() {
             //если змейка не ела, подчищаем хвост
 		    if(!haveFood(newUnit)){
                 let removeSnake = snake.splice(0, 1)[0];    //Находим удаляемый элемент
+                console.log("let removeSnake = snake.splice(0, 1)[0] = " + removeSnake.className);
                 let classes = removeSnake.getAttribute("class").split(" ");
                 //удаление маркирующего класса snake-unit
                 removeSnake.setAttribute("class", classes[0] + " " + classes[1]);
-                console.log("snake.length = " + snake.length);
+                console.log("removeSnake.setAttribute(\"class\", classes[0] + \" \" + classes[1]); = " + removeSnake.className);
             } else {
                 numberOfFood[1]--;
             }
@@ -233,7 +234,6 @@ function startGame() {
  function scoreViewer() {
     let scoreDisplay = document.createElement("div");
     scoreDisplay.className = "scoreDisplay";
-    console.log("scoreDisplay.className =" + scoreDisplay.className);
     scoreDisplay.innerHTML = score;
 
     let body = document.querySelector("body");
