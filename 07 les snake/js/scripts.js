@@ -166,6 +166,32 @@ function createFood() {
     }            
 }
 
+// my func - создание препятствий
+function createBarrier() {
+    let barrierCreated = false;
+
+    while(!barrierCreated) {
+        // находим случайные координаты
+        let barrierX = Math.floor(Math.random() * (FIELD_SIZE_X));
+        let barrierY = Math.floor(Math.random() * (FIELD_SIZE_Y));
+
+        // определяем клетку на поле для дальнейшей вставки в нее барьера
+        let barrierCell = document.getElementsByClassName("cell-" + barrierX + "-" + barrierY)[0];
+        let barrierCellClass = barrierCell.getAttribute("class").split(" ");
+
+        //Если тут нет змейки, то размещаем еду
+        if(barrierCellClass.includes("snake-unit")) {
+            //ставим в выбранную ячейку барьер
+            barrierCell.setAttribute("class", barrierCellClass.join(" ") + " barrier-unit");
+            barrierCreated = true;
+            
+        }
+    }
+
+    
+
+}
+
 /**
  * Проверяем встречу с едой
  */
