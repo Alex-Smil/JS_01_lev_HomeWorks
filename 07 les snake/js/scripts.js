@@ -98,7 +98,12 @@ function moveSnake() {
         let coordY = parseInt(snakeCoords[2]);
 
         if (snakeDirection == "y+") {
-            newUnit = document.getElementsByClassName("cell-" + coordX + "-" + (coordY + 1))[0];
+            if(coordY + 1 == FIELD_SIZE_Y) {
+                // coordY -= coordY;
+                newUnit = document.getElementsByClassName("cell-" + coordX + "-" + (coordY - coordY))[0];
+            } else {
+                newUnit = document.getElementsByClassName("cell-" + coordX + "-" + (coordY + 1))[0];
+            }
         } else if (snakeDirection == "y-") {
             newUnit = document.getElementsByClassName("cell-" + coordX + "-" + (coordY - 1))[0];
         } else if (snakeDirection == "x-") {
@@ -110,7 +115,7 @@ function moveSnake() {
         //проверяем, что newUnit - это не часть змейки
         //также проверяем, что змейка не дошла до границы
         // *** + проверяем не наткнулись ли мы на барьер
-        console.log("newUnit.className = " + newUnit.className);
+        // console.log("newUnit.className = " + newUnit.className);
         if (!isSnakeUnit(newUnit) && newUnit != undefined && !isBarrier(newUnit)) {
             //Добавляем новую часть змейки
             newUnit.setAttribute("class", newUnit.getAttribute("class") + " snake-unit");
