@@ -45,3 +45,7 @@ td.game-table-cell {
     height: 50px;
     background: teal;
 }
+
+.barrier-unit {
+    background: yellow;
+}

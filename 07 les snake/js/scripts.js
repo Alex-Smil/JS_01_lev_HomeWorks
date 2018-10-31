@@ -12,6 +12,11 @@ let foodTimer;  //Таймер еды
 let foodCreationSpeed = 1000;   //Скорость появления еды
 let numberOfFood = [3, 0];  //Количество еды. 0 элемент-макс количество, 1 элемент - количество на поле
 
+// my global vars,
+let barrierCreationSpeed = 2000
+// по аналогии с numberOfFood[]
+let numberOfBarriers = [20, 0];
+
 let score = 0;  //Очки
 
 /**
@@ -113,11 +118,11 @@ function moveSnake() {
             //если змейка не ела, подчищаем хвост
 		    if(!haveFood(newUnit)){
                 let removeSnake = snake.splice(0, 1)[0];    //Находим удаляемый элемент
-                console.log("let removeSnake = snake.splice(0, 1)[0] = " + removeSnake.className);
+                // console.log("let removeSnake = snake.splice(0, 1)[0] = " + removeSnake.className);
                 let classes = removeSnake.getAttribute("class").split(" ");
                 //удаление маркирующего класса snake-unit
                 removeSnake.setAttribute("class", classes[0] + " " + classes[1]);
-                console.log("removeSnake.setAttribute(\"class\", classes[0] + \" \" + classes[1]); = " + removeSnake.className);
+                // console.log("removeSnake.setAttribute(\"class\", classes[0] + \" \" + classes[1]); = " + removeSnake.className);
             } else {
                 numberOfFood[1]--;
             }
@@ -168,26 +173,32 @@ function createFood() {
 
 // my func - создание препятствий
 function createBarrier() {
+    console.log("внутри function createBarrier()");
+
     let barrierCreated = false;
-
-    while(!barrierCreated) {
-        // находим случайные координаты
-        let barrierX = Math.floor(Math.random() * (FIELD_SIZE_X));
-        let barrierY = Math.floor(Math.random() * (FIELD_SIZE_Y));
-
-        // определяем клетку на поле для дальнейшей вставки в нее барьера
-        let barrierCell = document.getElementsByClassName("cell-" + barrierX + "-" + barrierY)[0];
-        let barrierCellClass = barrierCell.getAttribute("class").split(" ");
-
-        //Если тут нет змейки, то размещаем еду
-        if(barrierCellClass.includes("snake-unit")) {
-            //ставим в выбранную ячейку барьер
-            barrierCell.setAttribute("class", barrierCellClass.join(" ") + " barrier-unit");
-            barrierCreated = true;
-            
+    // если макс кол-во барьеров не превышено
+    if(numberOfBarriers[1] < numberOfBarriers[1]) {
+        while(!barrierCreated.includes("snake-unit")) {
+            // находим случайные координаты
+            let barrierX = Math.floor(Math.random() * (FIELD_SIZE_X));
+            let barrierY = Math.floor(Math.random() * (FIELD_SIZE_Y));
+    
+            // определяем клетку на поле для дальнейшей вставки в нее барьера
+            let barrierCell = document.getElementsByClassName("cell-" + barrierX + "-" + barrierY)[0];
+            let barrierCellClasses = barrierCell.getAttribute("class").split(" ");
+            console.log("barrierCellClass[0] = " + barrierCellClasses[0]);
+    
+            //Если тут нет змейки, то размещаем еду
+            if(barrierCellClasses.includes("snake-unit")) {
+                //ставим в выбранную ячейку барьер
+                barrierCell.setAttribute("class", barrierCellClasses.join(" ") + " barrier-unit");
+                console.log("barrierCell.className = " + barrierCell.className);
+                barrierCreated = true;
+                numberOfBarriers[1]++;
+            }
         }
+    
     }
-
     
 
 }
@@ -252,6 +263,7 @@ function startGame() {
 
     snakeTimer = setInterval(moveSnake, snakeSpeed);
     foodTimer = setInterval(createFood, foodCreationSpeed);   
+    barrierTimer = setInterval(createBarrier, barrierCreationSpeed)
     
     // scoreViewer();
 }
