@@ -15,7 +15,7 @@ let numberOfFood = [3, 0];  //Количество еды. 0 элемент-ма
 // my global vars,
 let barrierCreationSpeed = 2000
 // по аналогии с numberOfFood[]
-let numberOfBarriers = [20, 0];
+let numberOfBarriers = [3, 0];
 
 let score = 0;  //Очки
 
@@ -174,11 +174,12 @@ function createFood() {
 // my func - создание препятствий
 function createBarrier() {
     console.log("внутри function createBarrier()");
-
-    let barrierCreated = false;
     // если макс кол-во барьеров не превышено
-    if(numberOfBarriers[1] < numberOfBarriers[1]) {
-        while(!barrierCreated.includes("snake-unit")) {
+    if(numberOfBarriers[1] < numberOfBarriers[0]) {
+        let barrierCreated = false;
+        console.log("if(numberOfBarriers[1] < numberOfBarriers[1])");
+        while(!barrierCreated) {
+            console.log("if(numberOfBarriers[1] < numberOfBarriers[1])");
             // находим случайные координаты
             let barrierX = Math.floor(Math.random() * (FIELD_SIZE_X));
             let barrierY = Math.floor(Math.random() * (FIELD_SIZE_Y));
@@ -189,7 +190,7 @@ function createBarrier() {
             console.log("barrierCellClass[0] = " + barrierCellClasses[0]);
     
             //Если тут нет змейки, то размещаем еду
-            if(barrierCellClasses.includes("snake-unit")) {
+            if(!barrierCellClasses.includes("snake-unit")) {
                 //ставим в выбранную ячейку барьер
                 barrierCell.setAttribute("class", barrierCellClasses.join(" ") + " barrier-unit");
                 console.log("barrierCell.className = " + barrierCell.className);
