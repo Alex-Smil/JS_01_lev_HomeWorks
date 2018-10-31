@@ -108,8 +108,10 @@ function moveSnake() {
         }
 
         //проверяем, что newUnit - это не часть змейки
-	    //также проверяем, что змейка не дошла до границы
-        if (!isSnakeUnit(newUnit) && newUnit != undefined) {
+        //также проверяем, что змейка не дошла до границы
+        // *** + проверяем не наткнулись ли мы на барьер
+        console.log("newUnit.className = " + newUnit.className);
+        if (!isSnakeUnit(newUnit) && newUnit != undefined && !isBarrier(newUnit)) {
             //Добавляем новую часть змейки
             newUnit.setAttribute("class", newUnit.getAttribute("class") + " snake-unit");
             snake.push(newUnit);
@@ -144,6 +146,18 @@ function isSnakeUnit(unit){
 	}
 	
 	return check;
+}
+
+// ======
+function isBarrier(newUnit) {
+    newUnitClasses = newUnit.className.split(" ");
+    if(newUnitClasses.includes("barrier-unit")) {
+        alert("Вы наткнулись на барьер!!!")
+        return true;
+    }
+    // console.log("поле чисто")
+    return false;
+    
 }
 
 /**
