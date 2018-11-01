@@ -98,9 +98,10 @@ function moveSnake() {
         let coordY = parseInt(snakeCoords[2]);
 
         if (snakeDirection == "y+") {
+            // *** заранее проверяем на 1 элемент вперед, если выход за предел поля true, то обнуляем координаты
             if((coordY + 1) == FIELD_SIZE_Y) {
                 // coordY -= coordY;
-                newUnit = document.getElementsByClassName("cell-" + coordX + "-" + (coordY - coordY))[0];
+                newUnit = document.getElementsByClassName("cell-" + coordX + "-" + (coordY = 0))[0];
             } else {
                 newUnit = document.getElementsByClassName("cell-" + coordX + "-" + (coordY + 1))[0];
             }
@@ -111,9 +112,16 @@ function moveSnake() {
                 newUnit = document.getElementsByClassName("cell-" + coordX + "-" + (coordY - 1))[0];
             }
         } else if (snakeDirection == "x-") {
+            if((coordX - 1) < 0) {
+                newUnit = document.getElementsByClassName("cell-" + (coordX = FIELD_SIZE_X) + "-" + coordY)[0];
+            }
             newUnit = document.getElementsByClassName("cell-" + (coordX - 1) + "-" + coordY)[0];
         } else if (snakeDirection == "x+") {
-            newUnit = document.getElementsByClassName("cell-" + (coordX + 1) + "-" + coordY)[0];
+            if(coordX + 1 == FIELD_SIZE_X) {
+                newUnit = document.getElementsByClassName("cell-" + (coordX = 0) + "-" + coordY)[0];
+            } else {
+                newUnit = document.getElementsByClassName("cell-" + (coordX + 1) + "-" + coordY)[0];
+            }
         }
 
         //проверяем, что newUnit - это не часть змейки
