@@ -52,12 +52,16 @@ function addToBasket(eventObj) {
     // а просто увеличим значения в уже существующей строке  
     if (checkDuplicateInBasket(objForBasket)) {
         duplicateExistingProduct(objForBasket);
+
+        getTotalPriceBasket();
     } else {
         // если текущего товара еще нет в корзине
         // то создаем новую строку с инфой из объекта objForBasket
         var newTrForBasket = createNewTrForBasket(objForBasket);
         // добавляем строку/товар в таблицу/корзину
         basketTBody.appendChild(newTrForBasket);
+
+        getTotalPriceBasket();
     }
 }
 
@@ -162,9 +166,9 @@ function createNewTrForBasket(objForBasket) {
             td.className = "b-basket__prodImage";
             td.appendChild(img);
         } else {
-            // или же просто вставляем инфу из поля св-ва объекта в поле строки в корзине
             td.innerText = objForBasket[prop];
         }
+        
         tr.appendChild(td);
     }
     // отдельно создаем:
@@ -174,9 +178,31 @@ function createNewTrForBasket(objForBasket) {
     tr.appendChild(quantityTd);
     // строку с общей строимостью по текущей позиции
     var totalCost = document.createElement("td");
+    totalCost.className = "totalCostOneProd";
     totalCost.innerText = objForBasket.prodCost;
     tr.appendChild(totalCost);
     return tr;
+}
+
+// Общий итог по всей корзине
+function getTotalPriceBasket() {
+    // определяем ячейку куда будем вставлять итоговую стоимость
+    let totalCostNumCell = document.querySelector(".b-catalog__totalCostNum");
+
+
+    // пробегаемся по корзине и собираем в коллекцию ячейки с классом totalCostOneProd
+    // let collectOFtotalCostOneProd = document.getElementsByClassName("totalCostOneProd");
+    let collectOFtotalCostOneProd = document.querySelectorAll(".totalCostOneProd");
+    let totalCostAllBasket = 0;
+
+    for(let i = 0; i < collectOFtotalCostOneProd.length; i++) {
+        totalCostAllBasket += parseInt(collectOFtotalCostOneProd[i].innerText);
+    }
+
+    console.log("totalCostAllBasket = " + totalCostAllBasket);
+
+    totalCostNumCell.innerText = totalCostAllBasket;
+
 }
 // ==================== Конец блока функций для обработки добавления товаров из каталога в корзину =====================
 
